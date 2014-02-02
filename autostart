@@ -1,0 +1,29 @@
+### put in /etc/init.d/
+### do, sudo chmod 755 /etc/init.d/autostart
+### do, sudo update-rc.d autostart defaults
+
+### activate airmon-ng
+### activate wlan0
+
+#!/bin/bash
+# /etc/init.d/autostart
+
+case "$1" in
+	start)
+		echo "Starting autostart script"
+		echo "Activating Airmon-ng on WLAN0"
+		sudo airmon-ng start wlan0
+		sleep 5
+		echo "Activating Wireless on WLAN0"
+		sudo wpa_action wlan0 stop
+		sudo ifup wlan0
+		sleep 5
+		sudo wpa_cli status
+		;;
+	stop)
+		echo "I cannot stop"
+		;;
+esac
+
+exit 0
+		
